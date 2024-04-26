@@ -1,6 +1,7 @@
 package com.indisp.crypto
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedContentTransitionScope
@@ -14,6 +15,7 @@ import com.indisp.crypto.coin.ui.CoinsSearchScreen
 import com.indisp.crypto.coin.ui.CoinsSearchViewModel
 import com.indisp.crypto.navigation.Route
 import com.indisp.designsystem.theme.CryptoTheme
+import org.koin.androidx.compose.navigation.koinNavViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 private const val ANIM_DURATION = 300
@@ -33,7 +35,8 @@ class HomeActivity : ComponentActivity() {
                     popExitTransition = { slideOutOfContainer(AnimatedContentTransitionScope.SlideDirection.Right, tween(ANIM_DURATION)) },
                 ) {
                     composable(Route.COINS_LIST.name) {
-                        val coinsListViewModel: CoinsListViewModel by viewModel()
+                        val coinsListViewModel: CoinsListViewModel = koinNavViewModel()
+                        Log.d("HomeActivity", "onCreate: CoinsListViewModel -> $coinsListViewModel")
                         CoinsListScreen(
                             screenStateFlow = coinsListViewModel.screenStateFlow,
                             sideEffectFlow = coinsListViewModel.sideEffectFlow,
@@ -43,7 +46,8 @@ class HomeActivity : ComponentActivity() {
                     }
 
                     composable(Route.COINS_SEARCH.name) {
-                        val coinsSearchViewModel: CoinsSearchViewModel by viewModel()
+                        val coinsSearchViewModel: CoinsSearchViewModel = koinNavViewModel()
+                        Log.d("HomeActivity", "onCreate: CoinsSearchViewModel -> $coinsSearchViewModel")
                         CoinsSearchScreen(
                             screenStateFlow = coinsSearchViewModel.screenStateFlow,
                             processEvent = coinsSearchViewModel::processEvent,

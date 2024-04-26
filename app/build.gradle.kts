@@ -58,7 +58,7 @@ dependencies {
     implementation(project(":designsystem"))
 
     implementation(libs.jsonSerialization)
-    implementation(libs.koin)
+    implementation(libs.koin.nav)
     implementation(libs.immutableCollection)
 
     implementation(libs.ktx.core)
